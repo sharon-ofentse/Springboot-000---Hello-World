@@ -1,0 +1,20 @@
+# not necessary for current project, but is useful at a later stage so inserting the habit early
+networks:
+  app_helloworld_network:
+    driver: bridge
+
+services:
+  app-helloworld:
+    container_name: app_helloworld
+    build:
+      context: ./HelloWorldApplication
+      dockerfile: Dockerfile
+    image: app-helloworld-image
+    env_file:
+      - path: ./HelloWorldApplication/.env 
+        required: true
+    ports:
+      - "8080:8080"
+    networks:
+      - app_helloworld_network
+    restart: unless-stopped
